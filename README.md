@@ -64,12 +64,19 @@ Windows Firewall ตามคำสั่งที่โปรแกรมพิ
 | Five Hundred Miles | 4/4 | G3–E4 | หนังสือ + เทียบลำดับโน้ตกับ [KalimbaTabs.net](https://www.kalimbatabs.net/kalimba-tabs-tutorials/500-miles-by-peter-paul-and-mary/) |
 | Down by the Salley Gardens | 4/4 | G3–E4 | หนังสือ (เพนทาโทนิก G) |
 | Big Big World | 4/4 | A3–F4 | หนังสือ |
+| Always with me いつも何度でも | 4/4 | G3–G4 | [kalimba.live](https://kalimba.live/kalimba-tabs/always-with-me.html) ย้ายลง 1 อ็อกเทฟ |
 | Jasmine Flower 茉莉花 | 2/4 | G3–G4 | หนังสือ + เทียบรูปจังหวะกับ [jianpu.space](https://jianpu.space/en/songList/28) |
 
 ทุกเพลงตรวจแล้วว่าจำนวนจังหวะในแต่ละห้องลงตัว และไม่มีโน้ตที่เกินช่วง 9 คีย์
 
-เพลงในหนังสือที่ยังไม่ได้ใส่ (Summer, Always with me, The Lonely Goatherd, Rhythm of the rain)
-ส่วนใหญ่มีโน้ตขึ้นเกินลิ้นสูงสุด ต้องย้ายคีย์ก่อนถึงจะเล่นได้บนเครื่อง 9 คีย์
+**Always with me** ทำนองใช้โน้ต G A B C D E F G พอดีหนึ่งอ็อกเทฟ ต้นฉบับเขียนไว้ช่วง
+G4–G5 ซึ่งสูงเกินเครื่อง แต่ย้ายลงมาหนึ่งอ็อกเทฟแล้วกลายเป็น `5. 6. 7. 1 2 3 4 5`
+ซึ่งมีครบทุกตัวบนเครื่อง 9 คีย์ (เหลือลิ้น `6` ตัวเดียวที่ไม่ได้ใช้)
+จังหวะใช้โน้ตตัวดำเท่ากันหมดตามที่ต้นฉบับวางไว้ห้องละ 4 ตัว ถ้าฟังแล้วอยากได้จังหวะโยกกว่านี้
+แก้ในหน้าเว็บด้วยปุ่ม ✎ ได้
+
+เพลงในหนังสือที่ยังไม่ได้ใส่ (Summer, The Lonely Goatherd, Rhythm of the rain)
+มีโน้ตขึ้นเกินลิ้นสูงสุดแม้ย้ายอ็อกเทฟแล้ว เพราะช่วงเสียงกว้างกว่าที่เครื่อง 9 คีย์รองรับ
 
 ## แนวตั้ง / แนวนอน
 

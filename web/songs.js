@@ -159,6 +159,22 @@ const SONGS = [
     `,
   },
   {
+    // เทียบกับ kalimba.live/kalimba-tabs/always-with-me.html (C major)
+    // ทำนองใช้โน้ต G A B C D E F G พอดีหนึ่งอ็อกเทฟ ย้ายลงมาหนึ่งอ็อกเทฟแล้ว
+    // กลายเป็น 5. 6. 7. 1 2 3 4 5 ซึ่งมีครบบนเครื่อง 9 คีย์ (เหลือลิ้น 6 ที่ไม่ได้ใช้)
+    id: 'alwayswithme',
+    title: 'Always with me',
+    subtitle: 'いつも何度でも · Spirited Away · ย้ายลง 1 อ็อกเทฟให้พอดี 9 คีย์',
+    bpm: 76,
+    beatsPerBar: 4,
+    seq: `
+      5. 1 2 3 | 2 1 2 1 | 7. 6. 6. 5. | 6. 1 1 5. |
+      1 2 3 2 | 1 2 3 2 | 1 7. 1 2 | 1 3 4 5 |
+      5 4 3 5 | 3 2 1 7. | 1 3 4 5 | 5 4 3 5 |
+      3 2 1 7. | 1 - - -
+    `,
+  },
+  {
     id: 'jasmine',
     title: 'Jasmine Flower',
     subtitle: 'จากหนังสือที่แถมมา · 茉莉花 · จังหวะ 2/4 ช้าๆ',
