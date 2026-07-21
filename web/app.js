@@ -565,8 +565,9 @@ function buildHelpMap() {
   $('#helpMap').innerHTML = TINES.map((t, i) =>
     `<div class="${i === 4 ? 'mid' : ''}"><b>${t.label}</b><i>${t.note}</i></div>`).join('');
 
-  // ถามเซิร์ฟเวอร์ว่ามือถือควรเข้า URL ไหน (โชว์เฉพาะตอนเปิดบนคอม)
-  if (!/^\d+\.\d+\.\d+\.\d+$/.test(location.hostname)) {
+  // ถามเซิร์ฟเวอร์ว่ามือถือควรเข้า URL ไหน เฉพาะตอนเปิดจากคอมที่รัน server.py อยู่
+  // (เปิดจากมือถือผ่าน IP หรือเปิดจากเว็บที่ deploy ไว้ ไม่มี endpoint นี้)
+  if (location.hostname === 'localhost' || location.hostname === '127.0.0.1') {
     fetch('/api/info').then(r => r.json()).then(info => {
       if (!info.urls || !info.urls.length) return;
       $('#lanUrls').textContent = info.urls.join('\n');
@@ -584,7 +585,8 @@ $('#gateBtn').addEventListener('click', async () => {
   resizeCanvas();
   loadSong(SONG_LIST[0]);
   requestAnimationFrame(frame);
-  try { navigator.wakeLock?.request('screen'); } catch (_) { /* ต้องใช้ https */ }
+  // กันจอดับระหว่างซ้อม ทำงานเฉพาะบน https กับ localhost
+  navigator.wakeLock?.request('screen').catch(() => {});
 });
 
 buildTines();
