@@ -28,6 +28,17 @@ jobs:
 
       - uses: actions/configure-pages@v5
 
+      # ต่อเลขคอมมิตท้ายชื่อไฟล์ css/js ทุกครั้งที่ deploy
+      # ไม่งั้นมือถือจะใช้ไฟล์เก่าที่แคชไว้ แก้เพลงแล้วเปิดดูก็ยังเป็นของเดิม
+      - name: ใส่เลขเวอร์ชันกันแคช
+        run: |
+          V="${GITHUB_SHA::7}"
+          for f in styles.css songs.js audio.js app.js manifest.webmanifest; do
+            sed -i "s|\"$f\"|\"$f?v=$V\"|g" web/index.html
+          done
+          echo "เวอร์ชัน $V"
+          grep -E '\?v=' web/index.html
+
       - uses: actions/upload-pages-artifact@v3
         with:
           path: web

@@ -264,22 +264,18 @@ header{
   #app{
     display:grid;
     grid-template-columns:1fr clamp(198px,34vw,272px);
-    grid-template-rows:auto auto auto minmax(0,1fr) auto;
+    grid-template-rows:auto minmax(0,1fr);
     grid-template-areas:
       "stage header"
-      "stage transport"
-      "stage controls"
-      "stage tab"
-      "stage hint";
+      "stage panel";
   }
-  header    {grid-area:header}
-  #stage    {grid-area:stage;min-height:0}
-  #transport{grid-area:transport}
-  #controls {grid-area:controls}
-  #tab      {grid-area:tab;min-height:0;overflow-y:auto}
-  #modeHint {grid-area:hint}
+  header{grid-area:header}
+  #stage{grid-area:stage;min-height:0}
 
-  header,#transport,#controls,#tab,#modeHint{border-left:1px solid var(--line)}
+  /* ปุ่มทั้งหมดอยู่ในแถบเดียว ถ้าจอเตี้ยจนใส่ไม่หมดให้เลื่อนดูได้
+     ก่อนหน้านี้แยกเป็น grid หลายแถว พอเนื้อหาสูงเกินแถวล่างจะโดนดันตกจอไปเลย */
+  #panel{grid-area:panel;min-height:0;overflow-y:auto;overscroll-behavior:contain}
+  header,#panel{border-left:1px solid var(--line)}
   #transport{border-top:0}
 
   /* แถบข้างแคบ ป้ายชื่อขึ้นบรรทัดบนแทนการวางข้างหน้า */
@@ -303,8 +299,9 @@ header{
   #modeHint{padding:8px 12px 10px;font-size:11px}
 }
 
-/* แนวนอนบนจอเตี้ย (มือถือส่วนใหญ่) บีบแถบข้างลงอีกขั้น ไม่งั้นแถบโน้ตโดนเบียดจนหาย */
-@media (orientation:landscape) and (max-height:440px){
+/* แนวนอนบนจอเตี้ย (มือถือแทบทุกรุ่น) บีบแถบข้างลงอีกขั้น จะได้ไม่ต้องเลื่อน
+   เกณฑ์ 560px ครอบคลุมทั้งมือถือแนวนอนและแท็บเล็ตเครื่องเล็ก */
+@media (orientation:landscape) and (max-height:560px){
   header{padding:7px 10px}
   #songSelect{padding:7px 8px;font-size:13px}
   #transport{padding:8px 10px;gap:8px}
