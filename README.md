@@ -52,6 +52,25 @@ Windows Firewall ตามคำสั่งที่โปรแกรมพิ
 
 เปิดบนคอมกดคีย์ `1`–`9` แทนลิ้นซ้ายไปขวาได้ และ `space` = เล่น/หยุด
 
+## เพลงที่มีมาให้
+
+| เพลง | จังหวะ | ช่วงเสียงที่ใช้ | ที่มา |
+|---|---|---|---|
+| Twinkle Twinkle Little Star | 4/4 | C4–A4 | เพลงมาตรฐาน |
+| Ode to Joy | 4/4 | C4–G4 | เพลงมาตรฐาน |
+| Happy Birthday to you | 3/4 | G3–G4 | หนังสือที่แถมมากับเครื่อง |
+| Jingle Bell | 4/4 | C4–G4 | หนังสือที่แถมมากับเครื่อง |
+| We wish you a Merry Christmas | 3/4 | G3–G4 | หนังสือ + ตรวจกับ [jianpu.space](https://jianpu.space/en/songList/6581b41cd6404321c40a2b4c) ตรงทุกห้อง |
+| Five Hundred Miles | 4/4 | G3–E4 | หนังสือ + เทียบลำดับโน้ตกับ [KalimbaTabs.net](https://www.kalimbatabs.net/kalimba-tabs-tutorials/500-miles-by-peter-paul-and-mary/) |
+| Down by the Salley Gardens | 4/4 | G3–E4 | หนังสือ (เพนทาโทนิก G) |
+| Big Big World | 4/4 | A3–F4 | หนังสือ |
+| Jasmine Flower 茉莉花 | 2/4 | G3–G4 | หนังสือ + เทียบรูปจังหวะกับ [jianpu.space](https://jianpu.space/en/songList/28) |
+
+ทุกเพลงตรวจแล้วว่าจำนวนจังหวะในแต่ละห้องลงตัว และไม่มีโน้ตที่เกินช่วง 9 คีย์
+
+เพลงในหนังสือที่ยังไม่ได้ใส่ (Summer, Always with me, The Lonely Goatherd, Rhythm of the rain)
+ส่วนใหญ่มีโน้ตขึ้นเกินลิ้นสูงสุด ต้องย้ายคีย์ก่อนถึงจะเล่นได้บนเครื่อง 9 คีย์
+
 ## แนวตั้ง / แนวนอน
 
 หมุนจอได้ทั้งสองแบบ เลย์เอาต์สลับให้เอง ไม่ต้องรีเฟรช
