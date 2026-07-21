@@ -1,0 +1,18 @@
+{
+  "name": "Kalimba 9 คีย์ — ฝึกเล่น",
+  "short_name": "Kalimba 9",
+  "description": "เว็บฝึกเล่นคาลิมบา 9 คีย์แบบโน้ตร่วง ผังลิ้นตรงตาม NuNu mini (C major)",
+  "lang": "th",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "any",
+  "background_color": "#171210",
+  "theme_color": "#171210",
+  "icons": [
+    { "src": "icons/favicon-32.png", "sizes": "32x32", "type": "image/png" },
+    { "src": "icons/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "icons/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "icons/icon-maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ]
+}
