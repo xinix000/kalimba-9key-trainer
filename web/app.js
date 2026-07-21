@@ -385,10 +385,20 @@ function updateProgress(beat) {
       el.classList.toggle('cur', i === idx);
       el.classList.toggle('done', i < idx);
     });
-    // แนวตั้งแถบโน้ตเลื่อนแนวนอน แนวนอนมันตัดขึ้นบรรทัดใหม่ เลยปล่อยให้เบราว์เซอร์
-    // เลือกแกนที่ต้องเลื่อนเอง
+    // เลื่อนเฉพาะกล่องแถบโน้ตเท่านั้น ห้ามใช้ scrollIntoView เพราะมันจะไล่เลื่อน
+    // element แม่ทุกชั้นที่เลื่อนได้ด้วย แนวนอนจะกลายเป็นเลื่อนแถบข้างทั้งแถบ
+    // จนปุ่มเล่นหลุดออกนอกจอ
     const cur = tabSpans[idx];
-    if (cur) cur.scrollIntoView({ block: 'nearest', inline: 'center', behavior: 'smooth' });
+    if (cur) {
+      const flow = $('#tabFlow');
+      if (flow.scrollWidth > flow.clientWidth + 1) {          // แนวตั้ง: แถบเดียวยาวๆ
+        flow.scrollTo({ left: cur.offsetLeft - flow.clientWidth / 2 + cur.offsetWidth / 2,
+                        behavior: 'smooth' });
+      } else if (flow.scrollHeight > flow.clientHeight + 1) { // แนวนอน: ตัดเป็นตาราง
+        flow.scrollTo({ top: cur.offsetTop - flow.clientHeight / 2 + cur.offsetHeight / 2,
+                        behavior: 'smooth' });
+      }
+    }
     lastTabIdx = idx;
   }
 }

@@ -183,6 +183,8 @@ header{
 #tab{border-top:1px solid var(--line);padding:8px 12px;background:#00000030}
 .tab-head{font-size:11px;color:#7d6c60;margin-bottom:5px}
 #tabFlow{
+  /* ต้องเป็น offsetParent ของตัวโน้ต app.js จะได้คำนวณตำแหน่งเลื่อนถูก */
+  position:relative;
   display:flex;gap:5px;overflow-x:auto;padding-bottom:4px;
   font-family:ui-monospace,"Cascadia Mono",Consolas,monospace;
   scrollbar-width:thin;
@@ -295,7 +297,8 @@ header{
   #tines{height:38%;min-height:96px;max-height:none;padding-bottom:8px}
   #songTitleNow{display:none}        /* ชื่อเพลงอยู่ในกล่องเลือกด้านบนแล้ว */
   .seek-meta{flex-wrap:nowrap}
-  #tabFlow{flex-wrap:wrap;overflow-x:visible}
+  /* ตัดเป็นตารางแล้วให้เลื่อนอยู่ในกล่องตัวเอง ไม่ไปดันแถบข้างทั้งแถบ */
+  #tabFlow{flex-wrap:wrap;overflow-x:hidden;overflow-y:auto;max-height:34vh}
   #modeHint{padding:8px 12px 10px;font-size:11px}
 }
 
