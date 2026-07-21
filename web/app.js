@@ -82,6 +82,10 @@ function buildTines() {
 
     const hit = (ev) => { ev.preventDefault(); tapTine(i); };
     el.addEventListener('pointerdown', hit);
+    // ถอดคลาสทิ้งเมื่อแสงวูบจบ ไม่งั้นลิ้นที่เคยโดนดีดจะค้างสว่างไปตลอดทั้งเพลง
+    el.addEventListener('animationend', (ev) => {
+      if (ev.animationName === 'tineHit') el.classList.remove('hit');
+    });
     tinesEl.appendChild(el);
     tineEls.push(el);
   });
