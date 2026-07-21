@@ -1,0 +1,162 @@
+<!doctype html>
+<html lang="th">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, user-scalable=no">
+<meta name="theme-color" content="#171210">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<title>Kalimba 9 คีย์ — ฝึกเล่น</title>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<div id="gate">
+  <div class="gate-inner">
+    <div class="gate-emoji">🎵</div>
+    <h1>Kalimba 9 คีย์</h1>
+    <p class="gate-sub">NuNu mini · C major<br><span class="mono">5· 6· 7· 1 2 3 4 5 6</span></p>
+    <button id="gateBtn" class="big-btn">แตะเพื่อเริ่ม</button>
+    <p class="gate-hint">แตะหนึ่งครั้งเพื่อเปิดเสียง (มือถือบังคับ)</p>
+    <a class="credit" href="https://github.com/xinix000" target="_blank" rel="noopener">
+      สร้างโดย <b>xinix000</b>
+    </a>
+  </div>
+</div>
+
+<div id="app" hidden>
+
+  <header>
+    <select id="songSelect" aria-label="เลือกเพลง"></select>
+    <button id="btnEdit" class="icon-btn" title="เพิ่ม/แก้เพลง">✎</button>
+    <button id="btnHelp" class="icon-btn" title="ผังลิ้น">?</button>
+  </header>
+
+  <div id="stage">
+    <canvas id="fall"></canvas>
+    <div id="tines"></div>
+  </div>
+
+  <div id="transport">
+    <button id="btnPlay" class="play-btn">▶</button>
+    <div class="seek">
+      <div class="seek-bar"><div id="seekFill"></div></div>
+      <div class="seek-meta"><span id="barNow">—</span><span id="songTitleNow"></span></div>
+    </div>
+    <button id="btnLoop" class="toggle-btn" title="เล่นวนซ้ำ">⟳</button>
+  </div>
+
+  <div id="controls">
+
+    <div class="row">
+      <span class="row-label">โหมด</span>
+      <div class="seg" id="modeSeg">
+        <button data-mode="listen" class="on">ฟังก่อน</button>
+        <button data-mode="play">เล่นตาม</button>
+        <button data-mode="step">รอฉัน</button>
+      </div>
+    </div>
+
+    <div class="row">
+      <span class="row-label">ความเร็ว</span>
+      <div class="speed">
+        <button id="spDown">−</button>
+        <button id="spReset"><span id="spVal">1.0×</span></button>
+        <button id="spUp">+</button>
+      </div>
+      <button id="btnMetro" class="toggle-btn wide">🥁<span class="lbl"> เมโทรนอม</span></button>
+    </div>
+
+    <div class="row">
+      <span class="row-label">อ็อกเทฟ</span>
+      <div class="seg small" id="octSeg">
+        <button data-oct="0">ต่ำ</button>
+        <button data-oct="1" class="on">มินิ</button>
+        <button data-oct="2">สูง</button>
+      </div>
+      <span class="hint">ปรับให้เสียงในเว็บใกล้เคียงเครื่องจริง</span>
+    </div>
+
+  </div>
+
+  <div id="tab">
+    <div class="tab-head">โน้ตตัวเลข</div>
+    <div id="tabFlow"></div>
+  </div>
+
+  <div id="modeHint"></div>
+
+</div>
+
+<div id="help" hidden>
+  <div class="help-card">
+    <button id="helpClose" class="icon-btn close">✕</button>
+    <h2>ผังลิ้น NuNu 9 คีย์</h2>
+    <div class="help-map" id="helpMap"></div>
+    <p>ลิ้น <b>กลางยาวสุด</b> คือเสียงต่ำสุด (5·) แล้วไล่สลับซ้าย-ขวาออกไป
+       คอลัมน์โน้ตที่ร่วงลงมาบนจอ ตรงกับตำแหน่งลิ้นจริงเป๊ะ</p>
+    <h3>โหมด</h3>
+    <ul>
+      <li><b>ฟังก่อน</b> : เว็บเล่นให้ฟัง ลิ้นบนจอสว่างตามจังหวะ ดูให้จำก่อน</li>
+      <li><b>เล่นตาม</b> : เว็บเงียบ (เหลือแต่เมโทรนอม) โน้ตร่วงลงมาให้คุณดีดคาลิมบาจริงตาม</li>
+      <li><b>รอฉัน</b> : หยุดรอทุกตัวจนกว่าจะแตะลิ้นให้ถูกบนจอ เหมาะกับตอนหัดจำตำแหน่ง</li>
+    </ul>
+    <h3 id="lanHead" hidden>เปิดบนมือถือ</h3>
+    <p id="lanUrls" class="mono" hidden></p>
+
+    <h3>เพิ่มเพลงเอง</h3>
+    <p>แก้ไฟล์ <span class="mono">web/songs.js</span> เขียนโน้ตเป็นตัวเลขได้เลย
+       เช่น <span class="mono">1 1 5 5 | 6 6 5:2</span> (<span class="mono">:2</span> = ยาว 2 จังหวะ,
+       <span class="mono">5.</span> = เสียงต่ำ, <span class="mono">-</span> = ลากเสียง)</p>
+
+    <a class="credit" href="https://github.com/xinix000" target="_blank" rel="noopener">
+      สร้างโดย <b>xinix000</b>
+    </a>
+  </div>
+</div>
+
+<div id="editor" hidden>
+  <div class="help-card">
+    <button id="edClose" class="icon-btn close">✕</button>
+    <h2 id="edTitle">เพิ่มเพลงจากหนังสือ</h2>
+
+    <div class="ed-grid">
+      <label>ชื่อเพลง<input id="edName" type="text" placeholder="เช่น Down by the Salley Gardens"></label>
+      <div class="ed-row3">
+        <label>BPM<input id="edBpm" type="number" min="30" max="240" value="90"></label>
+        <label>จังหวะ/ห้อง<input id="edBar" type="number" min="1" max="12" value="4"></label>
+        <label>ห้องยก<input id="edPick" type="number" min="-8" max="0" step="0.5" value="0"></label>
+      </div>
+      <label>โน้ต<textarea id="edSeq" rows="5" spellcheck="false"
+        placeholder="0 0 5. | 1 1:0.5 2:0.5 1:0.5 7.:0.5 | 6. 6. 6."></textarea></label>
+    </div>
+
+    <div id="edStatus" class="ed-status"></div>
+
+    <div class="ed-actions">
+      <button id="edSave" class="big-btn small">บันทึก</button>
+      <button id="edPlay" class="ghost-btn">ลองฟัง</button>
+      <button id="edDelete" class="ghost-btn danger" hidden>ลบเพลงนี้</button>
+    </div>
+
+    <h3>วิธีพิมพ์จากหนังสือ</h3>
+    <table class="ed-help">
+      <tr><td><span class="mono">1</span></td><td>โน้ต 1 ยาว 1 จังหวะ</td></tr>
+      <tr><td><span class="mono">5.</span></td><td>จุดใต้ตัวเลขในหนังสือ = เสียงต่ำ พิมพ์จุดไว้ข้างหลัง</td></tr>
+      <tr><td><span class="mono">3:0.5</span></td><td>ตัวที่มีขีดใต้ 1 เส้น = ครึ่งจังหวะ (ขีดสองเส้นใช้ <span class="mono">:0.25</span>)</td></tr>
+      <tr><td><span class="mono">1:1.5</span></td><td>โน้ตประจุด ที่หนังสือเขียน <span class="mono">1·</span></td></tr>
+      <tr><td><span class="mono">-</span></td><td>ลากเสียงต่อ พิมพ์ตามหนังสือได้เลย</td></tr>
+      <tr><td><span class="mono">0</span></td><td>หยุด</td></tr>
+      <tr><td><span class="mono">|</span></td><td>เส้นกั้นห้อง ใส่หรือไม่ใส่ก็ได้ ช่วยให้อ่านง่าย</td></tr>
+    </table>
+    <p class="ed-note">เล่นได้เฉพาะ <span class="mono">5. 6. 7. 1 2 3 4 5 6</span> ถ้าในหนังสือมีโน้ตนอกช่วงนี้
+      (จุดบนหัวตัวเลข) เครื่อง 9 คีย์เล่นไม่ได้ ต้องย้ายทั้งเพลงขึ้นหรือลงหนึ่งอ็อกเทฟ</p>
+  </div>
+</div>
+
+<script src="songs.js"></script>
+<script src="audio.js"></script>
+<script src="app.js"></script>
+</body>
+</html>

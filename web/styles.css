@@ -1,0 +1,314 @@
+:root{
+  --bg:#171210;
+  --bg2:#1f1815;
+  --panel:#241c18;
+  --line:#3a2d26;
+  --wood:#c9945c;
+  --wood-dk:#8a5f36;
+  --amber:#f2b45c;
+  --teal:#5cc8b8;
+  --rose:#e88a8a;
+  --txt:#f3e7dc;
+  --dim:#a08d7e;
+  --safe-b:env(safe-area-inset-bottom,0px);
+}
+
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+[hidden]{display:none !important}   /* #app / #help ตั้ง display เอง ต้องทับ hidden ให้ชนะ */
+html,body{height:100%;margin:0}
+@supports (height:100dvh){html,body{height:100dvh}}   /* กันแถบ URL ของมือถือกินพื้นที่ */
+body{
+  background:radial-gradient(120% 80% at 50% 0%,#241a15 0%,var(--bg) 60%);
+  color:var(--txt);
+  font-family:"Segoe UI Variable","Segoe UI",-apple-system,"Noto Sans Thai",system-ui,sans-serif;
+  overflow:hidden;
+  overscroll-behavior:none;
+  touch-action:manipulation;
+}
+.mono{font-family:ui-monospace,"Cascadia Mono",Consolas,monospace}
+
+/* ---------- gate ---------- */
+#gate{position:fixed;inset:0;z-index:50;display:grid;place-items:center;
+  background:radial-gradient(90% 60% at 50% 30%,#2b1f18,#120d0b);text-align:center}
+.gate-inner{padding:24px}
+.gate-emoji{font-size:56px;filter:drop-shadow(0 6px 18px #0008)}
+#gate h1{margin:12px 0 4px;font-size:26px;letter-spacing:.5px}
+@media (orientation:landscape) and (max-height:440px){
+  .gate-emoji{font-size:34px}
+  #gate h1{font-size:21px}
+  .gate-sub{margin-bottom:16px;line-height:1.5}
+  .big-btn{padding:12px 36px;font-size:16px}
+  .gate-hint{margin-top:10px}
+}
+.gate-sub{margin:0 0 28px;color:var(--dim);line-height:1.7}
+.gate-sub .mono{color:var(--wood);font-size:15px;letter-spacing:2px}
+.gate-hint{margin-top:16px;color:#7d6c60;font-size:13px}
+
+.credit{
+  display:inline-block;margin-top:22px;padding:7px 16px;border-radius:999px;
+  border:1px solid var(--line);background:#00000038;
+  color:#9d8b7d;font-size:12.5px;text-decoration:none;
+  transition:color .15s ease,border-color .15s ease;
+}
+.credit b{color:var(--wood);font-weight:600}
+.credit:hover,.credit:focus-visible{color:var(--txt);border-color:var(--wood)}
+.help-card .credit{margin-top:18px}
+.big-btn{
+  background:linear-gradient(180deg,var(--wood),var(--wood-dk));
+  color:#22160e;border:0;border-radius:999px;padding:15px 44px;
+  font-size:17px;font-weight:700;font-family:inherit;cursor:pointer;
+  box-shadow:0 10px 30px #0007,inset 0 1px 0 #ffffff55;
+}
+.big-btn:active{transform:translateY(1px)}
+
+/* ---------- layout ---------- */
+#app{
+  height:100%;display:flex;flex-direction:column;
+  padding-bottom:var(--safe-b);
+  padding-left:env(safe-area-inset-left,0px);
+  padding-right:env(safe-area-inset-right,0px);
+}
+
+header{
+  display:flex;gap:8px;align-items:center;padding:10px 12px;
+  border-bottom:1px solid var(--line);background:#0000003d;
+}
+#songSelect{
+  flex:1;min-width:0;background:var(--panel);color:var(--txt);
+  border:1px solid var(--line);border-radius:10px;padding:9px 10px;
+  font-family:inherit;font-size:14px;
+}
+.icon-btn{
+  width:36px;height:36px;flex:none;border-radius:10px;border:1px solid var(--line);
+  background:var(--panel);color:var(--dim);font-size:15px;font-family:inherit;cursor:pointer;
+}
+
+/* ---------- stage ---------- */
+/* จอกว้างมากไม่ต้องยืดคาลิมบาให้ยักษ์ คุมความกว้างแล้วจัดกลาง */
+#stage{
+  flex:1;min-height:0;width:100%;max-width:620px;margin-inline:auto;
+  display:flex;flex-direction:column;position:relative;
+  box-shadow:0 0 0 1px #ffffff0a;
+}
+#fall{flex:1;min-height:0;width:100%;display:block}
+#tines{
+  height:34%;min-height:130px;max-height:210px;display:flex;position:relative;
+  background:linear-gradient(180deg,#3d2b1e,#2a1d15 40%,#20160f);
+  border-top:3px solid #6f4a2b;
+  box-shadow:0 -8px 24px #0006 inset;
+}
+#tines::before{ /* บริดจ์โลหะ */
+  content:"";position:absolute;left:0;right:0;top:0;height:9px;
+  background:linear-gradient(180deg,#e8e8ea,#9a9aa0 40%,#5d5d63);
+  box-shadow:0 3px 6px #0007;
+}
+.tine{flex:1;position:relative;display:flex;justify-content:center;cursor:pointer}
+.tine .bar{
+  position:absolute;top:0;width:56%;max-width:32px;border-radius:0 0 30% 30%/0 0 14px 14px;
+  background:linear-gradient(90deg,#4c4c55 0%,#b9b9c4 18%,#8f8f9a 46%,#adadb8 70%,#464650 100%);
+  box-shadow:0 6px 14px #000a,inset 0 -14px 18px -14px #000;
+  transition:filter .18s ease;
+}
+.tine .num{
+  position:absolute;left:50%;transform:translateX(-50%);
+  color:#2e2e37;font-size:12px;font-weight:800;font-family:ui-monospace,monospace;
+  text-shadow:0 1px 0 #ffffff9c;pointer-events:none;
+}
+.tine.hit .bar{
+  filter:brightness(1.5) drop-shadow(0 0 14px var(--glow,#f2b45c));
+  animation:tineHit .3s ease-out;
+}
+@keyframes tineHit{0%{transform:translateY(3px)}100%{transform:translateY(0)}}
+.tine.next .bar{
+  box-shadow:0 6px 14px #0009,0 0 0 2px var(--glow,#f2b45c),0 0 22px var(--glow,#f2b45c);
+  animation:pulse 1.1s ease-in-out infinite;
+}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.62}}
+
+/* ---------- transport ---------- */
+#transport{display:flex;align-items:center;gap:10px;padding:10px 12px;border-top:1px solid var(--line)}
+.play-btn{
+  width:48px;height:48px;flex:none;border-radius:50%;border:0;cursor:pointer;
+  background:linear-gradient(180deg,var(--amber),#c9873a);color:#20140a;
+  font-size:19px;box-shadow:0 6px 16px #0007,inset 0 1px 0 #fff6;
+}
+.play-btn:active{transform:translateY(1px)}
+.seek{flex:1;min-width:0}
+.seek-bar{height:6px;border-radius:3px;background:#3a2d26;overflow:hidden}
+#seekFill{height:100%;width:100%;transform:scaleX(0);transform-origin:left center;
+  background:linear-gradient(90deg,var(--wood),var(--amber));transition:transform .08s linear}
+.seek-meta{display:flex;justify-content:space-between;gap:10px;margin-top:5px;font-size:12px;color:var(--dim)}
+#songTitleNow{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.toggle-btn{
+  flex:none;border:1px solid var(--line);background:var(--panel);color:var(--dim);
+  border-radius:10px;padding:9px 11px;font-size:14px;font-family:inherit;cursor:pointer;
+}
+.toggle-btn.on{background:#4a3418;border-color:var(--amber);color:var(--amber)}
+.toggle-btn.wide{font-size:13px}
+
+/* ---------- controls ---------- */
+#controls{padding:2px 12px 8px;display:flex;flex-direction:column;gap:8px}
+.row{display:flex;align-items:center;gap:8px}
+.row-label{font-size:12px;color:var(--dim);width:52px;flex:none}
+.hint{font-size:11px;color:#7d6c60;flex:1;min-width:0}
+
+.seg{display:flex;background:var(--panel);border:1px solid var(--line);border-radius:10px;overflow:hidden}
+.seg button{
+  border:0;background:transparent;color:var(--dim);padding:9px 14px;
+  font-size:13px;font-family:inherit;cursor:pointer;white-space:nowrap;
+}
+.seg button.on{background:linear-gradient(180deg,#5a3d1c,#40290f);color:var(--amber);font-weight:600}
+.seg.small button{padding:7px 12px;font-size:12px}
+
+.speed{display:flex;background:var(--panel);border:1px solid var(--line);border-radius:10px;overflow:hidden}
+.speed button{
+  border:0;background:transparent;color:var(--txt);padding:8px 14px;
+  font-size:15px;font-family:inherit;cursor:pointer;
+}
+.speed button:nth-child(2){min-width:58px;font-size:13px;color:var(--amber);border-left:1px solid var(--line);border-right:1px solid var(--line)}
+
+/* ---------- tab ---------- */
+#tab{border-top:1px solid var(--line);padding:8px 12px;background:#00000030}
+.tab-head{font-size:11px;color:#7d6c60;margin-bottom:5px}
+#tabFlow{
+  display:flex;gap:5px;overflow-x:auto;padding-bottom:4px;
+  font-family:ui-monospace,"Cascadia Mono",Consolas,monospace;
+  scrollbar-width:thin;
+}
+#tabFlow span{
+  flex:none;min-width:24px;text-align:center;padding:3px 5px;border-radius:6px;
+  background:#2b211b;color:var(--dim);font-size:14px;
+}
+#tabFlow span.bar{background:transparent;color:#54423a;min-width:8px;padding:3px 0}
+#tabFlow span.cur{background:var(--amber);color:#20140a;font-weight:700}
+#tabFlow span.done{color:#6b5a4e}
+
+#modeHint{padding:0 12px 10px;font-size:12px;color:#8a7668;line-height:1.5;min-height:18px}
+
+/* ---------- editor ---------- */
+#editor{position:fixed;inset:0;z-index:45;background:#000000d4;display:grid;place-items:center;padding:16px}
+.ed-grid{display:flex;flex-direction:column;gap:10px;margin-bottom:12px}
+.ed-row3{display:flex;gap:8px}
+.ed-row3 label{flex:1;min-width:0}
+#editor label{display:block;font-size:12px;color:var(--dim)}
+#editor input,#editor textarea{
+  display:block;width:100%;margin-top:4px;
+  background:#1a1411;color:var(--txt);border:1px solid var(--line);border-radius:8px;
+  padding:9px 10px;font-family:ui-monospace,"Cascadia Mono",Consolas,monospace;font-size:14px;
+}
+#editor textarea{line-height:1.7;resize:vertical}
+#editor input:focus,#editor textarea:focus{outline:2px solid var(--wood);outline-offset:-1px}
+
+.ed-status{font-size:12.5px;line-height:1.6;border-radius:8px;padding:9px 11px;margin-bottom:12px}
+.ed-status.ok{background:#1e3a2c;color:#8fd8ac}
+.ed-status.warn{background:#4a2a1c;color:#f0a97c}
+.ed-status:empty{display:none}
+
+.ed-actions{display:flex;gap:8px;flex-wrap:wrap}
+.big-btn.small{padding:11px 26px;font-size:15px}
+.ghost-btn{
+  border:1px solid var(--line);background:var(--panel);color:var(--dim);
+  border-radius:999px;padding:11px 20px;font-size:14px;font-family:inherit;cursor:pointer;
+}
+.ghost-btn.danger{color:#e88a8a;border-color:#5c3030;margin-left:auto}
+
+.ed-help{border-collapse:collapse;width:100%;margin-bottom:10px}
+.ed-help td{padding:4px 8px 4px 0;font-size:13px;color:#cdbcae;vertical-align:top}
+.ed-help td:first-child{white-space:nowrap;color:var(--amber)}
+.ed-note{font-size:12.5px;color:#9d8b7d}
+
+/* ---------- help ---------- */
+#help{position:fixed;inset:0;z-index:40;background:#000000c4;display:grid;place-items:center;padding:16px}
+.help-card{
+  position:relative;max-width:520px;max-height:88vh;overflow:auto;
+  background:var(--bg2);border:1px solid var(--line);border-radius:16px;padding:20px;
+}
+.help-card h2{margin:0 0 14px;font-size:18px}
+.help-card h3{margin:18px 0 6px;font-size:14px;color:var(--amber)}
+.help-card p,.help-card li{font-size:13.5px;line-height:1.65;color:#cdbcae}
+.help-card ul{margin:0;padding-left:18px}
+.icon-btn.close{position:absolute;top:12px;right:12px}
+.help-map{display:flex;gap:3px;margin-bottom:14px}
+.help-map div{
+  flex:1;text-align:center;background:#2b211b;border-radius:8px;padding:8px 2px;
+  font-family:ui-monospace,monospace;
+}
+.help-map b{display:block;font-size:15px;color:var(--amber)}
+.help-map i{display:block;font-size:10px;color:#7d6c60;font-style:normal;margin-top:2px}
+.help-map .mid b{color:var(--teal)}
+#lanUrls{white-space:pre-line;color:var(--amber);font-size:14px;
+  background:#00000045;border-radius:8px;padding:8px 10px}
+
+@media (min-height:760px){
+  #tines{min-height:170px}
+}
+@media (max-width:360px){
+  .seg button{padding:9px 9px;font-size:12px}
+  .row-label{width:44px}
+}
+
+/* ---------- แนวนอน: ย้ายปุ่มทั้งหมดไปไว้แถบข้าง ให้โน้ตร่วงได้เต็มความสูง ---------- */
+@media (orientation:landscape){
+  #app{
+    display:grid;
+    grid-template-columns:1fr clamp(198px,34vw,272px);
+    grid-template-rows:auto auto auto minmax(0,1fr) auto;
+    grid-template-areas:
+      "stage header"
+      "stage transport"
+      "stage controls"
+      "stage tab"
+      "stage hint";
+  }
+  header    {grid-area:header}
+  #stage    {grid-area:stage;min-height:0}
+  #transport{grid-area:transport}
+  #controls {grid-area:controls}
+  #tab      {grid-area:tab;min-height:0;overflow-y:auto}
+  #modeHint {grid-area:hint}
+
+  header,#transport,#controls,#tab,#modeHint{border-left:1px solid var(--line)}
+  #transport{border-top:0}
+
+  /* แถบข้างแคบ ป้ายชื่อขึ้นบรรทัดบนแทนการวางข้างหน้า */
+  .row{flex-wrap:wrap;gap:6px}
+  .row-label{width:100%}
+  .hint{display:none}
+  .seg button{padding:8px 10px;font-size:12px}
+  .seg.small button{padding:6px 10px}
+  .speed button{padding:7px 12px}
+  .toggle-btn.wide{font-size:12px;padding:8px 10px}
+
+  /* play + loop บรรทัดบน แถบความคืบหน้าเต็มบรรทัดล่าง */
+  #transport{flex-wrap:wrap;justify-content:space-between}
+  .play-btn{width:44px;height:44px;font-size:17px}
+  .seek{flex:1 0 100%;order:3}
+
+  #tines{height:38%;min-height:96px;max-height:none;padding-bottom:8px}
+  #songTitleNow{display:none}        /* ชื่อเพลงอยู่ในกล่องเลือกด้านบนแล้ว */
+  .seek-meta{flex-wrap:nowrap}
+  #tabFlow{flex-wrap:wrap;overflow-x:visible}
+  #modeHint{padding:8px 12px 10px;font-size:11px}
+}
+
+/* แนวนอนบนจอเตี้ย (มือถือส่วนใหญ่) บีบแถบข้างลงอีกขั้น ไม่งั้นแถบโน้ตโดนเบียดจนหาย */
+@media (orientation:landscape) and (max-height:440px){
+  header{padding:7px 10px}
+  #songSelect{padding:7px 8px;font-size:13px}
+  #transport{padding:8px 10px;gap:8px}
+  #controls{padding:0 10px 6px;gap:6px}
+  #tab{padding:6px 10px}
+  #modeHint{display:none}
+  #tines{min-height:88px}
+
+  /* กลับมาวางป้ายชื่อไว้หน้าแถวเหมือนแนวตั้ง ประหยัดความสูงได้แถวละบรรทัด */
+  .row{flex-wrap:nowrap}
+  .row-label{width:46px;font-size:11px}
+  .seg button{padding:7px 8px;font-size:11.5px}
+  .seg.small button{padding:6px 9px;font-size:11px}
+  .speed button{padding:6px 9px;font-size:14px}
+  .speed button:nth-child(2){min-width:46px;font-size:12px}
+  .toggle-btn.wide{padding:6px 9px}
+  .toggle-btn .lbl{display:none}      /* เหลือแต่ไอคอนกลอง */
+  .play-btn{width:40px;height:40px;font-size:15px}
+}

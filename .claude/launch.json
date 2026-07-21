@@ -1,0 +1,11 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "kalimba",
+      "runtimeExecutable": "python",
+      "runtimeArgs": ["server.py", "--port", "8000", "--no-browser"],
+      "port": 8000
+    }
+  ]
+}
